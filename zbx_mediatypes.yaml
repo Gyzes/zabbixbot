@@ -1,0 +1,100 @@
+zabbix_export:
+  version: '5.2'
+  date: '2021-02-10T07:55:57Z'
+  media_types:
+    -
+      name: 'Telegram bot'
+      type: WEBHOOK
+      parameters:
+        7:
+          name: buttons
+          value: 'True'
+        6:
+          name: graph
+          value: 'True'
+        5:
+          name: itemid
+          value: '{ITEM.ID}'
+        1:
+          name: period
+          value: '10800'
+        0:
+          name: tag_graph
+          value: '{EVENT.TAGS.graph}'
+        4:
+          name: text
+          value: '{ALERT.MESSAGE}'
+        3:
+          name: title
+          value: '{ALERT.SUBJECT}'
+        2:
+          name: to
+          value: '{ALERT.SENDTO}'
+        8:
+          name: triggerid
+          value: '{TRIGGER.ID}'
+        9:
+          name: URL
+          value: 'http://zabbix-send.example.ru:8888'
+      max_sessions: '4'
+      script: |
+        var params = JSON.parse(value);
+        var req = new CurlHttpRequest();
+        req.AddHeader('Content-Type: application/json');
+        
+        var fields = {};
+        fields.to = params.to;
+        if (params.tag_graph == "False") {
+            params.graph = "False"
+        }
+        if (params.graph == "True") {
+            fields.graph = {"buttons": params.buttons, "itemid": [params.itemid], "period": params.period, "triggerid": params.triggerid};
+        }
+        fields.message = {"status": params.title.split('#')[0], "title": params.title.split('#')[1], "text": params.text};
+        
+        resp = req.Post(params.URL,
+        	JSON.stringify(fields));
+        
+        try {
+            resp = JSON.parse(resp);
+        }
+        catch (error) {
+            throw 'Parse error! Status code: ' + req.Status();
+        }
+
+        if (req.Status() != 200) {
+            throw 'Response code: ' + req.Status() + ' Error: ' + resp.error;
+        }
+
+        return 0
+      message_templates:
+        -
+          event_source: TRIGGERS
+          operation_mode: PROBLEM
+          subject: '{{{TRIGGER.STATUS}}}#{HOST.NAME1}: {TRIGGER.NAME}'
+          message: |
+            Trigger severity: {{{TRIGGER.SEVERITY}}} {TRIGGER.SEVERITY}
+            Host groups: {TRIGGER.HOSTGROUP.NAME}
+            
+            Item values:
+            {ITEM.NAME1}: {ITEM.VALUE1}
+        -
+          event_source: TRIGGERS
+          operation_mode: RECOVERY
+          subject: '{{{TRIGGER.STATUS}}}#{HOST.NAME1}: {TRIGGER.NAME}'
+          message: |
+            Trigger severity: {{{TRIGGER.SEVERITY}}} {TRIGGER.SEVERITY}
+            Host groups: {TRIGGER.HOSTGROUP.NAME}
+            
+            Duration time: {EVENT.DURATION} 
+            
+            Item values:
+            {ITEM.NAME1}: {ITEM.VALUE1}
+        -
+          event_source: AUTOREGISTRATION
+          operation_mode: PROBLEM
+          subject: '{{info}}#Auto registration'
+          message: |
+            Host name: {HOST.HOST}
+            Host IP: {HOST.IP}
+            Linked Templates:  Template OS Linux by Zabbix agent

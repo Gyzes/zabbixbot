@@ -1,0 +1,9 @@
+## LOCAL config
+.env
+
+## local and backup files
+*~
+*.bac
+*.local
+*.swp
+.idea

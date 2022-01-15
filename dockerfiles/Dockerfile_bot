@@ -1,0 +1,12 @@
+FROM python:3.9-alpine
+
+WORKDIR /app
+COPY app/requirements_bot.txt /app/
+COPY app/bot.py /app/
+
+RUN set -ex \
+ && pip install -r requirements_bot.txt \
+ && python --version \
+ && pip --version 
+
+CMD python -u bot.py

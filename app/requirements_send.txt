@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+PySocks
+requests
+pyzabbix
+flask
+redis

@@ -1,0 +1,12 @@
+FROM python:3.9-alpine
+
+WORKDIR /app
+COPY app/requirements_send.txt /app/
+COPY app/send.py /app/
+
+RUN set -ex \
+ && pip install -r requirements_send.txt \
+ && python --version \
+ && pip --version 
+
+CMD python -u send.py
