@@ -1,11 +1,11 @@
 version: '2.4'
 services:
 
-  py3-bot:
-    image: ${REGISTRY_URL}/zabbixbot_py3-bot:${BRANCH}
-    #build:
-    #  dockerfile: dockerfiles/Dockerfile_bot
-    #  context: .
+  bot:
+    #image: ${REGISTRY_URL}/zabbixbot_py3-bot:${BOT_TAG}
+    build:
+      dockerfile: Dockerfile
+      context: bot
     restart: always
     environment:
       - TG_TOKEN=${TG_TOKEN}
@@ -17,11 +17,11 @@ services:
       - authorization_token=${authorization_token}
 
 
-  py3-send:
-    image: ${REGISTRY_URL}/zabbixbot_py3-send:${BRANCH}
-    #build:
-    #  dockerfile: dockerfiles/Dockerfile_send
-    #  context: .
+  send:
+    #image: ${REGISTRY_URL}/zabbixbot_py3-send:${SEND_TAG}
+    build:
+      dockerfile: Dockerfile
+      context: send
     restart: always
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -38,9 +38,9 @@ services:
     scale: ${SEND_COUNT}
 
 
-  py3-lb:
-    container_name: py3-lb
-    image: dockercloud/haproxy:1.6.7
+  lb:
+    container_name: lb
+    image: dockercloud/haproxy:${HAPROXY_TAG}
     links:
       - py3-send
     ports:
@@ -57,6 +57,6 @@ services:
 
 
   redis:
-    image: redis:5-alpine
+    image: redis:${REDIS_TAG}
     command: ["sh", "-c", "exec redis-server --databases 1 --requirepass \"${REDIS_PASSWORD}\" --save \"\" "]
     restart: always

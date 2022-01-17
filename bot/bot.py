@@ -153,7 +153,8 @@ def handle_callback(message):
     data = {"to": message.from_user.id, "graph": {"buttons": "True", "itemid": [itemid], "period": period},
             "message": {"status": title[0], "title": title[2:], "text": text}}
     headers = {'Content-type': 'application/json', 'Authorization': os.getenv('authorization_token')}
-    requests.post('http://py3-lb', data=json.dumps(data), headers=headers)
+    # TODO change to variable
+    requests.post('http://lb', data=json.dumps(data), headers=headers)
 
 
 @bot.message_handler(commands=['start', 'help'])

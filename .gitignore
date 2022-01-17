@@ -7,3 +7,9 @@
 *.local
 *.swp
 .idea
+
+## python env
+.pytest_cache/
+.python-version
+__pycache__/
+*.py[co]

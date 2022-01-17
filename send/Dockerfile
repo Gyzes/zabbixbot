@@ -1,11 +1,11 @@
 FROM python:3.9-alpine
 
 WORKDIR /app
-COPY app/requirements_send.txt /app/
-COPY app/send.py /app/
+COPY requirements.txt requirements.txt
+COPY send.py send.py
 
 RUN set -ex \
- && pip install -r requirements_send.txt \
+ && pip install -r requirements.txt \
  && python --version \
  && pip --version 
 

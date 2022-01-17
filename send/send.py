@@ -139,6 +139,7 @@ def create_keyboard_list(itemid):
     return keyboard
 
 
+# TODO Add multiple supported zabbix or start without zabbix
 zbx = ZabbixWeb(server=os.getenv('zbx_server'), username=os.getenv('zbx_api_user'),
                 password=os.getenv('zbx_api_pass'))
 zbx.login()

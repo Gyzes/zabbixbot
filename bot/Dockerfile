@@ -1,11 +1,11 @@
 FROM python:3.9-alpine
 
 WORKDIR /app
-COPY app/requirements_bot.txt /app/
-COPY app/bot.py /app/
+COPY requirements.txt requirements.txt
+COPY bot.py bot.py
 
 RUN set -ex \
- && pip install -r requirements_bot.txt \
+ && pip install -r requirements.txt \
  && python --version \
  && pip --version 
 
