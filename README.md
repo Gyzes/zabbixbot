@@ -9,7 +9,7 @@ For start bot:
 
 `git clone https://github.com/Gyzes/zabbixbot.git`
 
-2) Change .env.sample and rename to ".env":
+2) Change .env.sample and rename to ".env"
 
 3) Start containers:
 
