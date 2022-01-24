@@ -34,3 +34,17 @@ Generate self-signed certificate
 4) Configure Action for send notification
 
 For disable send graph for trigger set tag: graph with value "False"
+
+**Examples**
+
+1) Autoregistration
+
+<img src="assets/autoregistration.jpg" alt="autoregitration">
+
+2) Trigger
+
+<img src="assets/trigger.jpg" alt="trigger">
+
+3) Ping
+
+<img src="assets/ping.jpg" alt="ping">
