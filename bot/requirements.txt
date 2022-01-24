@@ -1,4 +1,4 @@
-pyTelegramBotAPI
-requests
-pyzabbix
-pythonping
+pyTelegramBotAPI==4.3.1
+requests==2.27.1
+pyzabbix==1.0.0
+pythonping==1.1.1

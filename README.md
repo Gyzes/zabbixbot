@@ -2,7 +2,12 @@
 
 **Run bot:**
 
-Requirments: docker, docker-compose.
+Requirments: 
+- Zabbix-server: >=5.4
+- docker
+- docker-compose
+
+Create bot on @BotFather in Telegram
 
 For start bot:
 1) Download project
@@ -28,10 +33,14 @@ Generate self-signed certificate
 
 **Configure notifications in Zabbix:**
 
-1) Import media types from zbx_mediatypes.yaml
-2) Change address for send notification
-3) In user media type set Telegram id
-4) Configure Action for send notification
+1) Import media types from zbx_mediatypes.yaml and change value "URL"
+
+   <img src="assets/add_media_type.jpg" alt="add media type"/>
+
+2) In user media type set Telegram id
+
+   <img src="assets/user_media_type.jpg" alt="add media type"/>
+3) Configure Action for send notification
 
 For disable send graph for trigger set tag: graph with value "False"
 

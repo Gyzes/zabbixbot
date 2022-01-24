@@ -1,6 +1,5 @@
-pyTelegramBotAPI
-PySocks
-requests
-pyzabbix
-flask
-redis
+pyTelegramBotAPI==4.3.1
+requests==2.27.1
+pyzabbix==1.0.0
+flask==2.0.2
+redis==4.1.1
